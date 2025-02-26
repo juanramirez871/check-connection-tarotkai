@@ -1,5 +1,7 @@
 import re
 
+count_bad_status = 0
+
 
 def validate_url(url):
     regex = re.compile(
@@ -14,3 +16,16 @@ def validate_url(url):
     )
 
     return re.match(regex, url) is not None
+
+
+def set_count_bad_status(restart=False):
+    global count_bad_status
+    if restart:
+        count_bad_status = 0
+    else:
+        count_bad_status += 1
+
+
+def get_count_bad_status():
+    global count_bad_status
+    return count_bad_status
