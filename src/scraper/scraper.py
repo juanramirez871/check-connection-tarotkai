@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from scraper.whatsapp import send_message
-from scraper.utils import set_count_bad_status
+from scraper.utils import update_count_mistakes
 import tempfile
 import time
 
@@ -41,13 +41,13 @@ class WebScraper:
             )
 
             if not connected_element:
-                set_count_bad_status()
+                update_count_mistakes("report.json", "count_mistakes", 1)
                 send_message(
                     "🤖 Detecto que la línea de Isabel está desconectada. Por favor, revisar. 🤖"
                 )
 
         except TimeoutException:
-            set_count_bad_status()
+            update_count_mistakes("report.json", "count_mistakes", 1)
             send_message(
                 "🤖 Detecto que la línea de Isabel está desconectada. Por favor, revisar. 🤖"
             )

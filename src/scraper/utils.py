@@ -1,6 +1,6 @@
 import re
-
-count_bad_status = 0
+import os
+import json
 
 
 def validate_url(url):
@@ -18,14 +18,29 @@ def validate_url(url):
     return re.match(regex, url) is not None
 
 
-def set_count_bad_status(restart=False):
-    global count_bad_status
-    if restart:
-        count_bad_status = 0
+def update_count_mistakes(file_path, key, new_value):
+    if os.path.exists(file_path):
+        with open(file_path, "r+") as json_file:
+            data = json.load(json_file)
+            old_value = get_value_from_json(file_path, key)
+            data[key] = (old_value + new_value) * new_value
+            json_file.seek(0)
+            json.dump(data, json_file, indent=4)
+            json_file.truncate()
     else:
-        count_bad_status += 1
+        data = {key: new_value}
+        with open(file_path, "w") as json_file:
+            json.dump(data, json_file, indent=4)
+        update_count_mistakes(file_path, key, new_value)
 
 
-def get_count_bad_status():
-    global count_bad_status
-    return count_bad_status
+def get_value_from_json(file_path, key):
+    if os.path.exists(file_path):
+        with open(file_path, "r") as json_file:
+            data = json.load(json_file)
+            return data.get(key, f"'{key}' no exist in the JSON")
+    else:
+        return f"The File {file_path} no exist"
+
+
+{"count_mistakes": 0}
