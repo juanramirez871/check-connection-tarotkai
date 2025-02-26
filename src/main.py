@@ -3,7 +3,6 @@ from scraper.utils import validate_url, get_count_bad_status, update_count_mista
 from scraper.whatsapp import send_message
 from datetime import datetime
 import os
-import time
 
 if __name__ == "__main__":
     if validate_url(os.environ.get("PANEL_URL")) and validate_url(
