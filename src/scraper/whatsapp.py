@@ -4,6 +4,7 @@ import os
 
 def send_message(message):
     url = os.environ.get("URL_WHATSAPP")
+    print(os.environ.get("RECEIVE_NUMBER"))
     headers = {
         "Authorization": f"Bearer {os.environ.get('TOKEN_WHATSAPP')}",
         "Content-Type": "application/json",
@@ -12,7 +13,9 @@ def send_message(message):
     data = {
         "messaging_product": "whatsapp",
         "to": os.environ.get("RECEIVE_NUMBER"),
-        "type": "template",
+        "type": "text",
         "text": {"body": message},
     }
-    requests.post(url, headers=headers, json=data)
+    response = requests.post(url, headers=headers, json=data)
+    print(response.json())
+    print(response)

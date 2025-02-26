@@ -32,15 +32,21 @@ class WebScraper:
 
     def check_connection_panel(self, soup):
         time.sleep(10)
-        connected_element = WebDriverWait(self.driver, 30).until(
-            EC.presence_of_element_located(
-                (By.XPATH, "//span[contains(text(), 'Connected')]")
+        try:
+            connected_element = WebDriverWait(self.driver, 30).until(
+                EC.presence_of_element_located(
+                    (By.XPATH, "//span[contains(text(), 'Disconnected')]")
+                )
             )
-        )
 
-        if not connected_element:
+            if not connected_element:
+                send_message(
+                    "🤖 Detecto que la línea de Isabel está desconectada. Por favor, revisar. 🤖"
+                )
+
+        except TimeoutException:
             send_message(
-                "🤖 Detecto estado desconectado la linea de isabel. Porfavor revisar 🤖"
+                "🤖 Detecto que la línea de Isabel está desconectada. Por favor, revisar. 🤖"
             )
 
     def get_page_content(self, panel_url):

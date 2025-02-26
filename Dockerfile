@@ -27,7 +27,10 @@ ENV CHROME_BIN=/usr/bin/chromium \
     CHROME_DRIVER=/usr/bin/chromedriver \
     PASSWORD=xd \
     USER=xd \
-    LOGIN_URL=https://xd \
-    PANEL_URL=https://xd/index.php?menu=control_panel
+    LOGIN_URL=xd \
+    PANEL_URL=xd \
+    RECEIVE_NUMBER=xd \
+    URL_WHATSAPP=xd \
+    TOKEN_WHATSAPP=xd
 
 CMD ["python", "/src/main.py"]
