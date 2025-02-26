@@ -36,7 +36,7 @@ class WebScraper:
         try:
             connected_element = WebDriverWait(self.driver, 30).until(
                 EC.presence_of_element_located(
-                    (By.XPATH, "//span[contains(text(), 'Disconnected')]")
+                    (By.XPATH, "//span[contains(text(), 'Connected')]")
                 )
             )
 
