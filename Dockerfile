@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     libxrandr2 \
     unzip \
     wget \
+    cron \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt /src/../
@@ -25,7 +26,7 @@ COPY ./src /src
 
 ENV CHROME_BIN=/usr/bin/chromium \
     CHROME_DRIVER=/usr/bin/chromedriver 
-    
+
 RUN echo "*/30 * * * * root python /src/main.py >> /var/log/cron.log 2>&1" > /etc/cron.d/my-cron-job
 
 RUN chmod 0644 /etc/cron.d/my-cron-job
