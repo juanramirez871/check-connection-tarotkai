@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from scraper.whatsapp import send_message
 import tempfile
 import time
 
@@ -36,10 +37,11 @@ class WebScraper:
                 (By.XPATH, "//span[contains(text(), 'Connected')]")
             )
         )
-        if connected_element:
-            print(connected_element.text)
-        else:
-            print("connected_element not found.")
+
+        if not connected_element:
+            send_message(
+                "🤖 Detecto estado desconectado la linea de isabel. Porfavor revisar 🤖"
+            )
 
     def get_page_content(self, panel_url):
         self.driver.get(panel_url)
