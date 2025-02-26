@@ -24,13 +24,14 @@ RUN pip install --no-cache-dir -r /src/../requirements.txt
 COPY ./src /src
 
 ENV CHROME_BIN=/usr/bin/chromium \
-    CHROME_DRIVER=/usr/bin/chromedriver \
-    PASSWORD=xd \
-    USER=xd \
-    LOGIN_URL=xd \
-    PANEL_URL=xd \
-    RECEIVE_NUMBER=xd \
-    URL_WHATSAPP=xd \
-    TOKEN_WHATSAPP=xd
+    CHROME_DRIVER=/usr/bin/chromedriver 
+    
+RUN echo "*/30 * * * * root python /src/main.py >> /var/log/cron.log 2>&1" > /etc/cron.d/my-cron-job
 
-CMD ["python", "/src/main.py"]
+RUN chmod 0644 /etc/cron.d/my-cron-job
+
+RUN crontab /etc/cron.d/my-cron-job
+
+RUN touch /var/log/cron.log
+
+CMD cron && tail -f /var/log/cron.log
