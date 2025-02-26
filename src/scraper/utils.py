@@ -8,7 +8,7 @@ def validate_url(url):
         r"localhost|"  # localhost...
         r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|"  # IP (v4)
         r"\[?[A-F0-9]*:[A-F0-9:]+\]?)"  # IP (v6)
-        r"(?::\d+)?"  # puerto
+        r"(?::\d+)?"  # port
         r"(?:/?|[/?]\S+)$",
         re.IGNORECASE,
     )
