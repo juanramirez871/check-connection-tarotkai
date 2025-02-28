@@ -1,5 +1,5 @@
 from scraper.scraper import WebScraper
-from scraper.utils import validate_url, get_count_bad_status, update_count_mistakes
+from scraper.utils import validate_url, get_value_from_json, update_count_mistakes
 from scraper.whatsapp import send_message
 from datetime import datetime
 import os
@@ -27,11 +27,11 @@ if __name__ == "__main__":
         if current_time.hour == 0 and current_time.minute == 0:
             update_count_mistakes("report.json", "count_mistakes", 0)
 
-            if get_count_bad_status() == 0:
+            if get_value_from_json("report.json", "count_mistakes") == 0:
                 send_message("✅🤖 El dia a transcurrido con exito, sin fallas  🤖✅")
             else:
                 send_message(
-                    f"👀🤖 hubieron {get_count_bad_status()} errores en el dia 🤖👀"
+                    f"👀🤖 hubieron {get_value_from_json('report.json', 'count_mistakes')} errores en el dia 🤖👀"
                 )
 
     else:
