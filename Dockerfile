@@ -20,6 +20,8 @@ RUN apt-get update && apt-get install -y \
 
 COPY requirements.txt /src/../
 
+COPY .env /src/../
+
 RUN pip install --no-cache-dir -r /src/../requirements.txt
 
 COPY ./src /src
