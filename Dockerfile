@@ -27,7 +27,7 @@ COPY ./src /src
 ENV CHROME_BIN=/usr/bin/chromium \
     CHROME_DRIVER=/usr/bin/chromedriver 
 
-RUN echo "*/30 * * * * root python /src/main.py >> /var/log/cron.log 2>&1" > /etc/cron.d/my-cron-job
+RUN echo "*/30 * * * * python3 /src/main.py >> /var/log/cron.log 2>&1" > /etc/cron.d/my-cron-job
 
 RUN chmod 0644 /etc/cron.d/my-cron-job
 
@@ -35,4 +35,4 @@ RUN crontab /etc/cron.d/my-cron-job
 
 RUN touch /var/log/cron.log
 
-CMD cron && tail -f /var/log/cron.log
+CMD export $(cat /src/.env | xargs) && cron && tail -f /var/log/cron.log

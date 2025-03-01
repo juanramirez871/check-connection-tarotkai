@@ -2,7 +2,10 @@ from scraper.scraper import WebScraper
 from scraper.utils import validate_url, get_value_from_json, update_count_mistakes
 from scraper.whatsapp import send_message
 from datetime import datetime
+from dotenv import load_dotenv
 import os
+
+load_dotenv("/src/.env")
 
 if __name__ == "__main__":
     if validate_url(os.environ.get("PANEL_URL")) and validate_url(
