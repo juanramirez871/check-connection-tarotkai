@@ -6,19 +6,12 @@ load_dotenv("/src/.env")
 
 
 def send_message(message):
-    url = os.environ.get("URL_WHATSAPP")
-    print(os.environ.get("RECEIVE_NUMBER"))
-    headers = {
-        "Authorization": f"Bearer {os.environ.get('TOKEN_WHATSAPP')}",
-        "Content-Type": "application/json",
-    }
+    try:
+        url = os.environ.get("URL_WHATSAPP")
+        number = os.environ.get("RECEIVE_NUMBER")
+        params = {"number": number, "message": message}
 
-    data = {
-        "messaging_product": "whatsapp",
-        "to": os.environ.get("RECEIVE_NUMBER"),
-        "type": "text",
-        "text": {"body": message},
-    }
-    response = requests.post(url, headers=headers, json=data)
-    print(response.json())
-    print(response)
+        requests.get(url, params=params)
+
+    except Exception as e:
+        print("error whatsapp: ", e)
