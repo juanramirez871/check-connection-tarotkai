@@ -18,18 +18,20 @@ RUN apt-get update && apt-get install -y \
     cron \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt /src/../
+COPY requirements.txt /src
 
 COPY .env /src
 
-RUN pip install --no-cache-dir -r /src/../requirements.txt
+COPY run.sh /src
 
 COPY ./src /src
 
 ENV CHROME_BIN=/usr/bin/chromium \
     CHROME_DRIVER=/usr/bin/chromedriver 
 
-RUN echo "*/30 * * * * python3 /src/main.py >> /var/log/cron.log 2>&1" > /etc/cron.d/my-cron-job
+RUN chmod +x /src/run.sh
+
+RUN echo "*/30 * * * * /src/run.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/my-cron-job
 
 RUN chmod 0644 /etc/cron.d/my-cron-job
 
