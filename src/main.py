@@ -27,14 +27,16 @@ if __name__ == "__main__":
         scraper.check_connection_panel(soupPanel)
         scraper.close()
 
-        if current_time.hour == 0 and current_time.minute == 0:
-            update_count_mistakes("report.json", "count_mistakes", 0)
+        if get_value_from_json("report.json", "count_checks") == 107:
+            update_count_mistakes("report.json", "count_mistakes", 0, "count_checks", 0)
 
             if get_value_from_json("report.json", "count_mistakes") == 0:
-                send_message("✅🤖 El dia a transcurrido con exito, sin fallas  🤖✅")
+                send_message(
+                    "✅🤖 en 18 horas a transcurrido con exito, sin fallas detectadas  🤖✅"
+                )
             else:
                 send_message(
-                    f"👀🤖 hubieron {get_value_from_json('report.json', 'count_mistakes')} errores en el dia 🤖👀"
+                    f"👀🤖 hubieron {get_value_from_json('report.json', 'count_mistakes')} errores en 18 horas 🤖👀"
                 )
 
     else:

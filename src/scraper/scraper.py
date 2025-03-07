@@ -41,13 +41,15 @@ class WebScraper:
             )
 
             if not connected_element:
-                update_count_mistakes("report.json", "count_mistakes", 1)
+                update_count_mistakes(
+                    "report.json", "count_mistakes", 1, "count_checks", 1
+                )
                 send_message(
                     "🤖 Detecto que la línea de Isabel está desconectada. Por favor, revisar. 🤖"
                 )
 
         except TimeoutException:
-            update_count_mistakes("report.json", "count_mistakes", 1)
+            update_count_mistakes("report.json", "count_mistakes", 1, "count_checks", 1)
             send_message(
                 "🤖 Detecto que la línea de Isabel está desconectada. Por favor, revisar. 🤖"
             )

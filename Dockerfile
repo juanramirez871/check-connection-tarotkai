@@ -31,7 +31,7 @@ ENV CHROME_BIN=/usr/bin/chromium \
 
 RUN chmod +x /src/run.sh
 
-RUN echo "*/30 * * * * /src/run.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/my-cron-job
+RUN echo "*/10 * * * * /src/run.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/my-cron-job
 
 RUN chmod 0644 /etc/cron.d/my-cron-job
 

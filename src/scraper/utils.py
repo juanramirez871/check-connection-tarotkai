@@ -18,12 +18,17 @@ def validate_url(url):
     return re.match(regex, url) is not None
 
 
-def update_count_mistakes(file_path, key, new_value):
+def update_count_mistakes(file_path, key, new_value, key2, new_value2):
     if os.path.exists(file_path):
         with open(file_path, "r+") as json_file:
             data = json.load(json_file)
+
             old_value = get_value_from_json(file_path, key)
             data[key] = (old_value + new_value) * new_value
+
+            old_value2 = get_value_from_json(file_path, key2)
+            data[key2] = (old_value2 + new_value2) * new_value2
+
             json_file.seek(0)
             json.dump(data, json_file, indent=4)
             json_file.truncate()
@@ -31,7 +36,7 @@ def update_count_mistakes(file_path, key, new_value):
         data = {key: new_value}
         with open(file_path, "w") as json_file:
             json.dump(data, json_file, indent=4)
-        update_count_mistakes(file_path, key, new_value)
+        update_count_mistakes(file_path, key, new_value, key2, new_value2)
 
 
 def get_value_from_json(file_path, key):
