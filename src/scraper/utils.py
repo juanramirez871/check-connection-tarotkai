@@ -27,13 +27,13 @@ def update_count_mistakes(file_path, key, new_value, key2, new_value2):
             data[key] = (old_value + new_value) * new_value
 
             old_value2 = get_value_from_json(file_path, key2)
-            data[key2] = (old_value2 + new_value2) * new_value2
+            data[key2] = (int(old_value2) + int(new_value2)) * int(new_value2)
 
             json_file.seek(0)
             json.dump(data, json_file, indent=4)
             json_file.truncate()
     else:
-        data = {key: new_value}
+        data = {key: new_value, key2: new_value2}
         with open(file_path, "w") as json_file:
             json.dump(data, json_file, indent=4)
         update_count_mistakes(file_path, key, new_value, key2, new_value2)
