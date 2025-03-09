@@ -7,11 +7,18 @@ load_dotenv("/src/.env")
 
 def send_message(message):
     try:
+        i = 1
         url = os.environ.get("URL_WHATSAPP")
-        number = os.environ.get("RECEIVE_NUMBER")
-        params = {"number": number, "message": message}
 
-        requests.get(url, params=params)
+        while True:
+            number = os.environ.get(f"RECEIVE_NUMBER_{i}")
+
+            if not number:
+                break
+
+            params = {"number": number, "message": message}
+            requests.get(url, params=params)
+            i += 1
 
     except Exception as e:
         print("error whatsapp: ", e)
